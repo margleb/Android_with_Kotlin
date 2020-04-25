@@ -1,16 +1,22 @@
 package com.example.myproject2
 
 fun main() {
-    for(num in 1..10) {
-        print("$num ")
-    }
-    println()
-    for(i in 1 until 10) {
-        print("$i ")
-    }
-    println()
-    // same as - for(i in 10.downTo(1).step(2)
-    for(i in 10 downTo 1 step 2) {
-        print("$i ")
-    }
+    // argument
+    // var result = addUp(5, 3)
+    var avg = avg(5.3, 13.34)
+    print("result is $avg")
+}
+
+fun avg(a: Double,  b: Double): Double {
+    return (a+b)/2
+}
+
+// Parameter (input)
+fun addUp(a: Int, b: Int) : Int {
+    // output
+    return a+b
+}
+
+fun myFunction() {
+    print("Called form myFunction")
 }
