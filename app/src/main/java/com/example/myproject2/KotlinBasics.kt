@@ -1,13 +1,17 @@
 package com.example.myproject2
 
 fun main() {
-    // Arithmetic operators (==, !=, <, >, <=, >=)
-    val isEqual = 5==3;
-    println("isEqual is $isEqual")
-    val isNotEqual = 5!=5
-    // String interpolation
-    println("isNotEqual is $isNotEqual")
-    println("is5greater4 ${5>3}")
-    println("is5LowerEqual3 ${5<=3}")
-
+    //Assign operators(+=,-=,*=,/=,%=0)
+    var myNum = 5
+    myNum += 3
+    println("myNum is $myNum")
+    myNum *= 4
+    println("myNum is $myNum")
+    // Increment/Decrement
+    myNum++
+    println("myNum is $myNum")
+    myNum--
+    println("myNum is $myNum")
+    println("myNum is ${myNum++}")
+    println("myNum is ${++myNum}")
 }
