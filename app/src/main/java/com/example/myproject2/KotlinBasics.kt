@@ -1,22 +1,22 @@
 package com.example.myproject2
 
 fun main() {
-    // argument
-    // var result = addUp(5, 3)
-    var avg = avg(5.3, 13.34)
-    print("result is $avg")
-}
+   var name:String = "Denis"
+   // name = null
+   //  Non-Null тип
+   var nullableName:String? = "Denis"
+   // nullableName = null
 
-fun avg(a: Double,  b: Double): Double {
-    return (a+b)/2
-}
+   // var len = name.length
+   // var len2 = nullableName?.length
+   // println(nullableName?.toLowerCase())
+   // Для проведения каких-либо операций исключительно над non-null значениями вы можете использовать let оператор вместе с оператором безопасного вызова
+   // it - указывает на этот элемент
+   nullableName?.let { println ( it.length )}
 
-// Parameter (input)
-fun addUp(a: Int, b: Int) : Int {
-    // output
-    return a+b
-}
-
-fun myFunction() {
-    print("Called form myFunction")
+   /* if(nullableName!=null) {
+       var len2 = nullableName.length
+   } else {
+       null
+   } */
 }
