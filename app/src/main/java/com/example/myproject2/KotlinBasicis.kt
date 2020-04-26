@@ -1,61 +1,53 @@
 package com.example.myproject2
 
-
 fun main() {
-    var audiA3 = Car(200.0, "A3", "Audi")
-    var teslaS = ElectricCar(240.0,"S-model", "Tesla", 85.0)
-    teslaS.chargerType = "Type2"
-    // teslaS.extendRange(200.0)
+    val human = Human("Dengis", "Russia", 70.0, 28.0)
+    val elephant = Elephant("Rosy", "India", 5400.0, 25.0)
+    // val mammal = Mammal("Denis", "Russia", 70.0, 28.0) // нельзя создать из абстрактного класса обьект
+    human.run()
+    elephant.run()
 
-    // teslaS.drive()
-    teslaS.breake()
-    audiA3.breake()
-
-    // Polymorphism
-    // audiA3.drive(200.0)
-    // teslaS.drive(200.0)
+    human.breath()
+    elephant.breath()
 }
 
-
-interface Drivable {
-    val maxSpeed: Double
-    fun drive():String
-    fun drive(distance:Double):String
-    fun breake() { // можно указать по умолчанию
-        println("The drivable is breaking")
-    }
-}
-
-// расширяем интерфейсом Drivable, а также добавляем поле, необходимое для перезаписи
-open class Car(override val maxSpeed: Double, val name:String, val brand:String) : Drivable {
-    open var range: Double = 0.0
-    // перезаписанный метод
-    override fun drive(distance: Double): String = "Drove for $distance KM on regularCar"
-
-    fun extendRange(amount: Double) {
-        if(amount > 0) {
-            range += amount
+    // Главное отличие интерфейсов от абстрактных классов заключается в невозможности хранения переменных экземпляров
+    // Абстрактный класс не может быть инициализирован (из него нельзя создать обьект)
+    // Однако, я могу наследовать собклассы из абстрактного класса
+    // Члены (свойства и методы) абстрактного класса не абстрактные
+    // Интерфейсы в отличие от абстрактных классов не имею конструктора
+    // тем не менее я могу явно указать abstract ключевое слово, для того чтобы их сделать абстрактными
+    abstract class Mammal(private val name:String, private val origin:String, private val weight:Double) { // не абстрактные свойства
+        // абстрактное свойство (должно быть переписано собклассом)
+        abstract var maxSpeed: Double
+        // абстрактное свойство (должно быть реализовано с помочью собкласса)
+        abstract fun run()
+        abstract fun breath()
+        // не абстрактный класс
+        fun displayDetails() {
+            println("Name: $name, Origin: $origin, Weight: $weight, " + "Max Speed: $maxSpeed")
         }
     }
 
-    // перезаписанный метод
-    override fun drive(): String = "driving the interface drive"
-}
-
-// так как в интерфейс был включен в родительский класс, то здесь тоже нужно расширить
-class ElectricCar(maxSpeed: Double, name: String, brand:String, batteryLife: Double) : Car(maxSpeed,name, brand) {
-    var chargerType = "Type1"
-    override var range = batteryLife * 6
-
-    // перезаписанный метод
-    override fun drive(distance: Double): String = "Drove for $distance KM on electricity"
-
-    // допускается такой же вариант перезаписи
-    override fun drive(): String {
-        return "Drove for $range КM on electircity"
+    // Класс наследуемы от Mammal
+    class Human(name:String, origin:String, weight:Double, override var maxSpeed:Double): Mammal(name, origin, weight) {
+        override fun run() {
+            // Code to run
+            println("Runs on two legs")
+        }
+        override fun breath() {
+            // Code to breath
+            println("Breath through mouth or nose")
+        }
     }
-    override fun breake() {
-        super.breake()
-        println("breake inside of electric car")
+    class Elephant(name:String, origin:String, weight:Double, override var maxSpeed:Double):Mammal(name, origin, weight) {
+        override fun run() {
+           // Code to run
+           println("Runs on four legs")
+        }
+
+        override fun breath() {
+            // Code to breath
+            println("Breath through the trunk")
+        }
     }
-}
