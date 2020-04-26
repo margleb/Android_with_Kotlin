@@ -1,14 +1,14 @@
 package com.example.myproject2
 
+var b = 3
 fun main() {
-    var denis  = Person("Gleb", "Martianov")
-    var john = Person()
-    var johnPeterson = Person(lastName = "Peterson")
+    myFunction(5)
+    // b = 5
 }
 
-class Person(firstName: String = "John", lastName: String = "Doe") {
-    // Initializer Block
-    init {
-        println("Person created $firstName $lastName")
-    }
+// this a is a parementer
+fun myFunction(a:Int) {
+    // a is a variable
+    var b = a
+    println("b is $b")
 }
