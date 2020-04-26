@@ -1,34 +1,34 @@
 package com.example.myproject2
 
+import java.lang.IllegalArgumentException
 
 fun main() {
-    var denis = Person("Denis", "Panjuta", 31)
-    denis.hobby = "skateboard"
-    denis.age = 32
-    println("Denis is ${denis.age} years old")
-    denis.stateHobby()
-    var john = Person()
-    john.hobby = "play video games"
-    john.stateHobby()
+    var myCar = Car()
+    println("brand is : ${myCar.myBrand}")
+    myCar.maxSpeed = 2
+    println("Maxspeed is ${myCar.maxSpeed}")
+    println("Model is ${myCar.myModel}");
 }
 
-class Person(fitstName:String = "John", lastName:String = "Doe") {
-    // Member Variable - Properties
-    var age:Int? = null
-    var hobby :String = "watch Netflix"
-    var firstName:String? = null
+class Car() {
+    // lateinit говорит о том, что данная переменная будет инициализирована позже
+    lateinit var owner : String
+    // пример гетера
+    val myBrand: String = "BMW"
+    get() {
+        return field.toLowerCase()
+    }
+    var maxSpeed: Int = 250
+    get() = field
+    set(value) {
+        field = if(value > 0) value else throw IllegalArgumentException("Max speed cannot be less than 0")
+    }
+    var myModel:String = "M5"
+    private set // устанавливаем приватным setter
+    
+    // инициализатор
     init {
-        println("$fitstName and $lastName")
+        this.myModel = "M3"
+        this.owner = "Frank"
     }
-    // Member  secondary Constructor
-    constructor(firstName:String, lastName:String, age: Int) : this(firstName, lastName) {
-        this.age = age
-        println("$firstName and $lastName age is $age")
-    }
-    // Member functions - Methods
-    fun stateHobby() {
-        this.firstName = "Gleb"
-        println("$firstName\'s hobby is $hobby")
-    }
-
 }
