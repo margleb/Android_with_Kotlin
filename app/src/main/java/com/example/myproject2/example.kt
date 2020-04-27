@@ -1,26 +1,17 @@
 package com.example.myproject2
 
-
-var total = 0.0
-val arrayList = ArrayList<Double>()
-
 fun main() {
-    totalCount()
-    average()
+    addNumber(5, 10)
+    println(sum(5, 10))
+    println(sumShoter(10, 6))
 }
 
-fun totalCount() {
-    arrayList.add(1.5)
-    arrayList.add(2.5)
-    arrayList.add(3.3)
-    for(list in arrayList) {
-        total += list
-    }
-}
+// cоздаем лямбда функцию, называемую sum, берем 2 параметра Int, возращаем Int
+// теперь, мы говорим что a типа int + b типа int равно a+b
+val sum:(Int,Int) -> Int = {a:Int,b:Int->a+b}
+// более короткая запись
+val sumShoter = {a:Int, b:Int -> println(a+b)}
 
-fun average() : Double {
-    val average = total / arrayList.size
-    println(average)
-    return average
+fun addNumber(a:Int, b:Int) {
+    println(a + b)
 }
-
