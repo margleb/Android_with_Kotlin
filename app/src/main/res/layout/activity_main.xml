@@ -38,10 +38,24 @@
         android:id="@+id/button"
         android:layout_marginTop="15dp"
         android:background="#FFFFFF"
-        android:textColor="#a3a3a3"
+        android:textColor="@color/lightGrayTextColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Date"
         android:textStyle="bold"
         android:textSize="20sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Date:"
+        android:layout_marginTop="45dp"
+        android:textSize="20sp"
+        android:textColor="@color/lightGrayTextColor" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age in minutes:"
+        android:layout_marginTop="45dp"
+        android:textSize="20sp"
+        android:textColor="@color/lightGrayTextColor" />
 </LinearLayout>
