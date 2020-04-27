@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="15dp"
     android:gravity="center_horizontal"
     android:background="@color/backgroundColor"
     tools:context=".MainActivity">
@@ -15,4 +16,32 @@
         android:textColor="@color/textColor"
         android:textSize="25sp"
         android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Age"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/ageTextColor"
+        android:background="@color/ageTextBackgroundColor"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In minutes"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/textColor"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/button"
+        android:layout_marginTop="15dp"
+        android:background="#FFFFFF"
+        android:textColor="#a3a3a3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:textStyle="bold"
+        android:textSize="20sp" />
 </LinearLayout>
