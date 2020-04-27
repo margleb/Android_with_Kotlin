@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val dpd = DatePickerDialog(this,
             // это записаное лямбдой функция callback
             DatePickerDialog.OnDateSetListener{ view, selectedYear, selectedMonth, selectedDayOfMonth ->
-                Toast.makeText(this, "The chosen year is $selectedYear, the month is $selectedMonth and the day is $selectedDayOfMonth ", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "The chosen year is $selectedYear, the month is $selectedMonth and the day is $selectedDayOfMonth ", Toast.LENGTH_SHORT).show()
 
                 // нам нужен + 1 так как месяц начинается с позиции 0, а не с позиции 1
                 val selectedDate = "$selectedDayOfMonth/${selectedMonth+1}/$selectedYear"
@@ -39,16 +39,16 @@ class MainActivity : AppCompatActivity() {
 
                 // может получится, что time будет пустой, поэтому мы указываем !! то что типа доверяем
                 // количество минут с 1970 года до выбранной даты
-                val selectedDateInMinutes = theDate!!.time / 60000
+                val selectedDateInDates = theDate!!.time / 60000 / 60 / 24
 
                 // количество минут с 1970 года до текущей даты
                 var currentDate = sdf.parse(sdf.format(System.currentTimeMillis()))
-                var currentDateInMinutes = currentDate!!.time / 60000
+                var currentDateInDates  = currentDate!!.time / 60000 / 60 / 24
 
                 // получаем разницу в минутах от выбранной даты до сегодняшнего дня
-                val differenceInMinutes = currentDateInMinutes - selectedDateInMinutes
+                val differenceInDates = currentDateInDates - selectedDateInDates
                 // устанавливаем значение в минутах
-                tvAgeInMinutes.setText(differenceInMinutes.toString())
+                tvAgeInMinutes.setText(differenceInDates.toString())
 
                 tvSelectedDate.setText(selectedDate)
             }, year, month, day)
