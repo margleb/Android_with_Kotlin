@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val month = myCalendar.get(Calendar.MONTH)
         val day = myCalendar.get(Calendar.DAY_OF_MONTH)
         // date picker
-        DatePickerDialog(this,
+        val dpd = DatePickerDialog(this,
             // это записаное лямбдой функция callback
             DatePickerDialog.OnDateSetListener{ view, selectedYear, selectedMonth, selectedDayOfMonth ->
                 Toast.makeText(this, "The chosen year is $selectedYear, the month is $selectedMonth and the day is $selectedDayOfMonth ", Toast.LENGTH_SHORT).show()
@@ -37,8 +37,27 @@ class MainActivity : AppCompatActivity() {
                 val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
                 val theDate = sdf.parse(selectedDate)
 
+                // может получится, что time будет пустой, поэтому мы указываем !! то что типа доверяем
+                // количество минут с 1970 года до выбранной даты
+                val selectedDateInMinutes = theDate!!.time / 60000
+
+                // количество минут с 1970 года до текущей даты
+                var currentDate = sdf.parse(sdf.format(System.currentTimeMillis()))
+                var currentDateInMinutes = currentDate!!.time / 60000
+
+                // получаем разницу в минутах от выбранной даты до сегодняшнего дня
+                val differenceInMinutes = currentDateInMinutes - selectedDateInMinutes
+                // устанавливаем значение в минутах
+                tvAgeInMinutes.setText(differenceInMinutes.toString())
 
                 tvSelectedDate.setText(selectedDate)
-            }, year, month, day).show()
+            }, year, month, day)
+
+
+        // число - миллисикунд в одном дне
+        // не позволяет выбрать дату из будущего
+        dpd.datePicker.setMaxDate(Date().time - 86400000)
+        dpd.show()
+
     }
 }
