@@ -1,5 +1,4 @@
 package com.example.myproject2
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     fun onDigit(view: View) {
         tvInput.append((view as Button).text) // добавляем текст с кнопки
         lastNumeric = true
+        // проверяет, содержится ли в поле уже какоей либо значение
+        // if(tvInput.text.contains("1")) tvInput.text = "Haha"
     }
 
     fun onClear(view: View) {
@@ -34,6 +35,22 @@ class MainActivity : AppCompatActivity() {
             tvInput.append(".")
             lastNumeric = false
             lastDot = true
+        }
+    }
+
+    fun onOperator(view: View) {
+        if(lastNumeric && !isOperatorAdded(tvInput.text.toString())) {
+            tvInput.append((view as Button).text)
+            lastNumeric = false
+            lastDot = false
+        }
+    }
+
+    private fun isOperatorAdded(value:String) : Boolean {
+        return if (value.startsWith("-")) {
+            false
+        } else {
+            value.contains("/") || value.contains("*") || value.contains("+") || value.contains("-")
         }
     }
 

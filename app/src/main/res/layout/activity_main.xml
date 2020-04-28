@@ -46,7 +46,7 @@
             android:id="@+id/btnDivide"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onOperator"
             android:text="/"
             android:layout_weight="1" />
     </LinearLayout>
@@ -82,7 +82,7 @@
             android:id="@+id/btnMultiply"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onOperator"
             android:text="*"
             android:layout_weight="1" />
     </LinearLayout>
@@ -118,7 +118,7 @@
             android:id="@+id/btnSubtract"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onOperator"
             android:text="-"
             android:layout_weight="1" />
     </LinearLayout>
@@ -154,7 +154,7 @@
             android:id="@+id/btnAdd"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onOperator"
             android:text="+"
             android:layout_weight="1" />
     </LinearLayout>
