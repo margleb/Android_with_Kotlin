@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.ArithmeticException
 
 class MainActivity : AppCompatActivity() {
     var lastNumeric:Boolean = false
@@ -46,11 +47,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isOperatorAdded(value:String) : Boolean {
+    fun isOperatorAdded(value:String) : Boolean {
         return if (value.startsWith("-")) {
             false
         } else {
             value.contains("/") || value.contains("*") || value.contains("+") || value.contains("-")
+        }
+    }
+
+    fun onEqual(view:View) {
+        if(lastNumeric) {
+            var tvValue = tvInput.text.toString()
+            var prefix = ""
+            try {
+                if(tvValue.startsWith("-")) {
+                    prefix = "-"
+                    // удалеяет вначале минус
+                    tvValue = tvValue.substring(1)
+                }
+                if(tvValue.contains("-")) {
+                    val splitValue = tvValue.split("-")
+                    var one = splitValue[0]
+                    var two = splitValue[1]
+                    // если значение изначально минусовое было, то возращаем минус обратно
+                    if(!prefix.isEmpty()) {
+                        one = prefix + one
+                    }
+                    tvInput.text = (one.toDouble() - two.toDouble()).toString()
+                }
+            } catch (e: ArithmeticException) {
+                e.printStackTrace()
+            }
         }
     }
 
