@@ -133,7 +133,7 @@
             android:id="@+id/Decimal"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onDecimalPoint"
             android:text="."
             android:layout_weight="1" />
         <Button
