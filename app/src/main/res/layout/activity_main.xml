@@ -147,7 +147,7 @@
             android:id="@+id/btnClear"
             android:layout_height="match_parent"
             android:layout_width="0dp"
-            android:onClick="onDigit"
+            android:onClick="onClear"
             android:text="CLR"
             android:layout_weight="1" />
         <Button
