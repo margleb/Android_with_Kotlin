@@ -12,6 +12,9 @@
         android:layout_width="match_parent"
         android:background="#efefef"
         android:layout_height="250dp"
+        android:padding="10dp"
+        android:text="0"
+        android:gravity="right|center_vertical|bottom"
         android:textSize="48sp"
         android:maxLength="12" />
     <!-- first row -->
