@@ -9,6 +9,7 @@ import android.graphics.*
 // Класс Path инкапсулирует составные (многоконтурные) геометрические пути
 // Коллекция атрибутов, найденная связанной с тегом в документе XML *
 import android.util.AttributeSet
+import android.view.MotionEvent
 // Этот класс представляет основной строительный блок для компонентов пользовательского интерфейса
 import android.view.View
 
@@ -52,4 +53,58 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         mBrushSize = 20.toFloat()
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        // при изменении размера экрана создается растровое изображение
+        mCanvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        // создает холст с указанным растровым изображением для рисования.
+        canvas = Canvas(mCanvasBitmap!!)
+    }
+
+    // Changes Canvas to Canvas? if fails
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        // рисуйте указанное растровое изображение с его верхним / левым углом в (x, y), используя указанную краску
+        canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
+        // рисуем путь
+        if(!mDrawPath!!.isEmpty) {
+            // указываем стиль кисти
+            mDrawPaint!!.strokeWidth = mDrawPath!!.brushThicness
+            //  Возращает цвет краски в sRGB
+            mDrawPaint!!.color = mDrawPaint!!.color
+            // рисует указанный путь, используя указанную краску
+            canvas.drawPath(mDrawPath!!, mDrawPaint!!)
+        }
+    }
+
+    // MotionEvent - Объект, используемый для сообщения о событиях движения (мышь, ручка, палец, трекбол).
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // получаем значение координат x/y
+        val touchX = event?.x
+        val touchY = event?.y
+        when(event?.action) {
+            // начальная позиция прорисовки
+            MotionEvent.ACTION_DOWN -> {
+                mDrawPath!!.color = color
+                mDrawPath!!.brushThicness = mBrushSize
+                // Удаляет все линии и кривые с пути, сделав его пустым.
+                mDrawPath!!.reset()
+                // перемещение по оси x/y
+                mDrawPath!!.moveTo(touchX!!, touchY!!)
+            }
+            // во время движения
+            MotionEvent.ACTION_MOVE -> {
+                // добавить линию от начальной до конечной точки
+                mDrawPath!!.lineTo(touchX!!, touchY!!)
+            }
+            // конечная точка прорисовки
+            MotionEvent.ACTION_UP -> {
+                mDrawPath = CustomPath(color, mBrushSize)
+            }
+            else -> return false
+        }
+        // проверяет на видимость view
+        invalidate()
+        return true
+    }
 }
