@@ -9,6 +9,7 @@ import android.graphics.*
 // Класс Path инкапсулирует составные (многоконтурные) геометрические пути
 // Коллекция атрибутов, найденная связанной с тегом в документе XML *
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 // Этот класс представляет основной строительный блок для компонентов пользовательского интерфейса
 import android.view.View
@@ -37,6 +38,12 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         setUpDrawing()
     }
 
+    fun setSizeForBrush(newSize:Float) {
+        // устанавливает размер кисти в соответсвии с разрешением экрана
+        mBrushSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize, resources.displayMetrics)
+        mDrawPaint!!.strokeWidth = mBrushSize
+    }
+
     internal inner class CustomPath(var color:Int, var brushThicness:Float) : Path(){
 
     }
@@ -51,7 +58,7 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         // cтиль линии
         mDrawPaint!!.strokeCap = Paint.Cap.ROUND
         mCanvasPaint = Paint(Paint.DITHER_FLAG)
-        mBrushSize = 20.toFloat()
+        // mBrushSize = 20.toFloat()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
