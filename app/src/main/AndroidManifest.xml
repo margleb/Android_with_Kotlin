@@ -10,11 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ActivityResult"></activity>
         <activity
             android:name=".QuizQuestionsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTheme"></activity>
-        <!-- adjustResize - ресайз окна в случае, если появляется keyboard на экране -->
+            android:theme="@style/NoActionBarTheme" /> <!-- adjustResize - ресайз окна в случае, если появляется keyboard на экране -->
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/ic_bg"
+    tools:context=".ActivityResult">
+    <TextView
+        android:id="@+id/tv_congradulations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Congradulations!"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        />
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Username"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_score_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Your Score is 9 out of 10"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/button_finish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="18sp"
+        android:background="@android:color/white"
+        android:text="finish"
+        android:textColor="@color/colorPrimary"
+        />
+</LinearLayout>

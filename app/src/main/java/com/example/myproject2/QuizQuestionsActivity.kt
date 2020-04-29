@@ -19,6 +19,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mQuestionsList:ArrayList<Question>? = null
     // выбранная позиция вопроса
     private var mSelectedOptionPosition:Int = 0
+    // количество верных ответов
+    private var mCorrectAnswers: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,8 +109,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                         val question = mQuestionsList?.get(mCurrentPosition - 1)
                         if(question!!.correctAnswer != mSelectedOptionPosition) {
                             answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                        } else {
+                            mCorrectAnswers++
                         }
                             answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+
                         if(mCurrentPosition == mQuestionsList!!.size) {
                             btn_submit.text = "FINISH"
                         } else {
