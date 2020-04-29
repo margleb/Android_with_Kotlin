@@ -30,7 +30,8 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private var color = Color.BLACK
     // белвый фон для отрисовки
     private var canvas:Canvas? = null
-
+    // сохранение пути
+    private val mPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
@@ -62,10 +63,20 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     }
 
     // Changes Canvas to Canvas? if fails
+    // Указывает вконце что происходит при рисовании
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         // рисуйте указанное растровое изображение с его верхним / левым углом в (x, y), используя указанную краску
         canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
+
+        for(path in mPaths) {
+            // указываем стиль кисти
+            mDrawPaint!!.strokeWidth = path.brushThicness
+            //  Возращает цвет краски в sRGB
+            mDrawPaint!!.color = path.color
+            canvas.drawPath(path, mDrawPaint!!)
+        }
+
         // рисуем путь
         if(!mDrawPath!!.isEmpty) {
             // указываем стиль кисти
@@ -99,6 +110,7 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
             }
             // конечная точка прорисовки
             MotionEvent.ACTION_UP -> {
+                mPaths.add(mDrawPath!!)
                 mDrawPath = CustomPath(color, mBrushSize)
             }
             else -> return false
