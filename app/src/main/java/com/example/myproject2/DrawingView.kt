@@ -9,6 +9,7 @@ import android.graphics.*
 // Класс Path инкапсулирует составные (многоконтурные) геометрические пути
 // Коллекция атрибутов, найденная связанной с тегом в документе XML *
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 // Этот класс представляет основной строительный блок для компонентов пользовательского интерфейса
@@ -44,9 +45,15 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
         mDrawPaint!!.strokeWidth = mBrushSize
     }
 
-    internal inner class CustomPath(var color:Int, var brushThicness:Float) : Path(){
-
+    fun setColor(newColor: String) {
+        // парсит строку цвета и возращает соответсвующий цвет
+        color = Color.parseColor(newColor)
+        // Log.d("ColorID", "Color ID at setColor $color")
+        mDrawPaint!!.color = color
     }
+
+    // внутренний класс для кастомизации пути с 2 параметра цвета и размера линии
+    internal inner class CustomPath(var color:Int, var brushThicness:Float) : Path()
 
     private fun setUpDrawing() {
         mDrawPath = CustomPath(color,mBrushSize)
@@ -73,9 +80,11 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     // Указывает вконце что происходит при рисовании
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        // Log.d("Method", "onDraw is active")
         // рисуйте указанное растровое изображение с его верхним / левым углом в (x, y), используя указанную краску
         canvas.drawBitmap(mCanvasBitmap!!, 0f, 0f, mCanvasPaint)
 
+        // все нарисованные линии
         for(path in mPaths) {
             // указываем стиль кисти
             mDrawPaint!!.strokeWidth = path.brushThicness
@@ -89,7 +98,7 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
             // указываем стиль кисти
             mDrawPaint!!.strokeWidth = mDrawPath!!.brushThicness
             //  Возращает цвет краски в sRGB
-            mDrawPaint!!.color = mDrawPaint!!.color
+            mDrawPaint!!.color = mDrawPath!!.color
             // рисует указанный путь, используя указанную краску
             canvas.drawPath(mDrawPath!!, mDrawPaint!!)
         }
@@ -97,12 +106,14 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
 
     // MotionEvent - Объект, используемый для сообщения о событиях движения (мышь, ручка, палец, трекбол).
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        // Log.d("Method", "onTouchEvent is active")
         // получаем значение координат x/y
         val touchX = event?.x
         val touchY = event?.y
         when(event?.action) {
             // начальная позиция прорисовки
             MotionEvent.ACTION_DOWN -> {
+                // Log.d("Method", "ACTION_DOWN is active")
                 mDrawPath!!.color = color
                 mDrawPath!!.brushThicness = mBrushSize
                 // Удаляет все линии и кривые с пути, сделав его пустым.
@@ -112,11 +123,13 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
             }
             // во время движения
             MotionEvent.ACTION_MOVE -> {
+                // Log.d("Method", "ACTION_MOVE is active")
                 // добавить линию от начальной до конечной точки
                 mDrawPath!!.lineTo(touchX!!, touchY!!)
             }
             // конечная точка прорисовки
             MotionEvent.ACTION_UP -> {
+                // Log.d("Method", "ACTION_UP is active")
                 mPaths.add(mDrawPath!!)
                 mDrawPath = CustomPath(color, mBrushSize)
             }
