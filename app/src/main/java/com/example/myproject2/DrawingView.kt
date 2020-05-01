@@ -34,9 +34,19 @@ class DrawingView(context: Context, attrs: AttributeSet): View(context, attrs) {
     private var canvas:Canvas? = null
     // сохранение пути
     private val mPaths = ArrayList<CustomPath>()
+    // удаление нарисованных линий
+    private val mUndoPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
+    }
+
+    // удаление нарисованных линий
+    fun onClickUndo() {
+        if(mPaths.size > 0) {
+            mUndoPaths.add(mPaths.removeAt(mPaths.size - 1))
+            invalidate() // переисовывает заново вызывает onDraw
+        }
     }
 
     fun setSizeForBrush(newSize:Float) {
